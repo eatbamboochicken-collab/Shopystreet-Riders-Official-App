@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Shopystreet Riders — Courier Network</title>
+  <meta name="description" content="Shopystreet Riders — Universal courier execution platform for Bamboo Chicken and multi-source deliveries." />
+  <meta name="theme-color" content="#070D18" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Riders" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  
+  <!-- Modern confident typography: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+
+  <!-- TOP APP BAR (Futuristic Deep Ink with Sky Blue Accents) -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <div class="brand-icon" title="Shopystreet Riders Courier">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="5" cy="16.5" r="3.2"></circle>
+          <circle cx="19" cy="16.5" r="3.2"></circle>
+          <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+          <path d="M12.5 11l1.8-5h2.2"></path>
+          <path d="M9 11l2.5-3"></path>
+          <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>
+          SHOPYSTREET
+          <span class="brand-tag">RIDERS</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <!-- PWA Install Button (shown when installable) -->
+      <button id="install-btn" class="install-btn" title="Install Riders App">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Install App</span>
+      </button>
+
+      <!-- Notifications Button -->
+      <button id="btn-notifications" class="icon-btn" aria-label="Notifications">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <span id="notif-badge" class="badge-dot" style="display: none;"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SCREEN 0A: RIDER LOGIN (Production Worker Authentication) -->
+  <section id="screen-login" class="screen-auth" style="display: none;">
+    <div class="auth-hero">
+      <div class="auth-brand-icon" title="Shopystreet Riders">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="5" cy="16.5" r="3.2"></circle>
+          <circle cx="19" cy="16.5" r="3.2"></circle>
+          <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+          <path d="M12.5 11l1.8-5h2.2"></path>
+          <path d="M9 11l2.5-3"></path>
+          <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+        </svg>
+      </div>
+      <h1 class="auth-brand-title">
+        SHOPYSTREET
+        <span class="brand-tag">RIDERS</span>
+      </h1>
+      <p class="auth-brand-subtitle">Courier Network Partner Portal</p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2>Rider Sign In</h2>
+        <p>Sign in with your registered phone number and password to access the delivery network.</p>
+      </div>
+
+      <form id="login-form" class="auth-form" novalidate>
+        <div id="login-error" class="auth-error-box" style="display: none;" role="alert"></div>
+
+        <div class="form-group">
+          <label for="login-phone">Phone Number</label>
+          <input
+            id="login-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="e.g. +263 77 123 4567"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input
+            id="login-password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button id="btn-login-submit" type="submit" class="btn-dominant-accept auth-submit-btn">
+          <span>LOGIN</span>
+        </button>
+      </form>
+
+      <nav class="auth-nav-links" aria-label="Rider onboarding navigation">
+        <button type="button" class="auth-nav-item" id="link-login-to-register">
+          <span class="auth-nav-prompt">New to Shopystreet Riders?</span>
+          <span class="auth-nav-action">Register as a rider &rarr;</span>
+        </button>
+      </nav>
+
+      <div class="auth-footer-notice">
+        <span>Authorized Shopystreet active riders only.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 0B: RIDER REGISTRATION (Piece 1 — Modern Onboarding Experience) -->
+  <section id="screen-register" class="screen-auth screen-register-flow" style="display: none;">
+    <div class="reg-container">
+
+      <!-- Header: Strong Brand Identity & Context -->
+      <header class="reg-header">
+        <div class="reg-brand-badge">
+          <div class="reg-brand-icon" aria-hidden="true" title="Shopystreet Riders">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5" cy="16.5" r="3.2"></circle>
+              <circle cx="19" cy="16.5" r="3.2"></circle>
+              <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+              <path d="M12.5 11l1.8-5h2.2"></path>
+              <path d="M9 11l2.5-3"></path>
+              <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div class="reg-brand-title">
+            <span class="brand-name">SHOPYSTREET</span>
+            <span class="brand-tag">RIDERS</span>
+          </div>
+        </div>
+
+        <h1 class="reg-title">Become a Rider</h1>
+        <p class="reg-subtitle">
+          Join the Shopystreet delivery network.<br />
+          Complete your details to apply as a courier partner.
+        </p>
+
+        <!-- Subtle Onboarding Steps Indicator -->
+        <div class="reg-steps" role="navigation" aria-label="Application sections">
+          <div class="reg-step-item active">
+            <span class="step-num">01</span>
+            <span class="step-label">Personal</span>
+          </div>
+          <div class="step-divider" aria-hidden="true"></div>
+          <div class="reg-step-item">
+            <span class="step-num">02</span>
+            <span class="step-label">Rider</span>
+          </div>
+          <div class="step-divider" aria-hidden="true"></div>
+          <div class="reg-step-item">
+            <span class="step-num">03</span>
+            <span class="step-label">Security</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Registration Form Card -->
+      <div class="reg-card">
+        <form id="register-form" class="reg-form" novalidate>
+
+          <!-- SECTION 1: PERSONAL DETAILS -->
+          <fieldset class="form-section">
+            <legend class="section-legend">
+              <span class="legend-index">01</span>
+              <span class="legend-title">Personal Details</span>
+            </legend>
+            <p class="section-desc">Your legal identity for courier onboarding and contact.</p>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="reg-name" class="field-label">
+                  <span>Full Name</span>
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="reg-name"
+                  name="name"
+                  type="text"
+                  class="field-input"
+                  placeholder="e.g. Chipo Banda"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="reg-phone" class="field-label">
+                  <span>Phone Number</span>
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="reg-phone"
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  class="field-input"
+                  placeholder="e.g. +263 77 123 4567"
+                  autocomplete="tel"
+                  required
+                />
+                <span class="field-hint">Used for order alerts and courier dispatch login.</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="reg-national-id" class="field-label">
+                  <span>National ID Number</span>
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  id="reg-national-id"
+                  name="national_id_number"
+                  type="text"
+                  class="field-input"
+                  placeholder="e.g. 63-123456-X-42"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- SECTION 2: RIDER DETAILS -->
+          <fieldset class="form-section">
+            <legend class="section-legend">
+              <span class="legend-index">02</span>
+              <span class="legend-title">Rider Details</span>
+            </legend>
+            <p class="section-desc">Select your primary delivery vehicle.</p>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="reg-vehicle-trigger" class="field-label">
+                  <span>Vehicle Type</span>
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <!-- Form submission compatible input -->
+                <input type="hidden" id="reg-vehicle-type" name="vehicle_type" value="motorbike" required />
+
+                <!-- Inline Vehicle Selector Container -->
+                <div class="inline-vehicle-picker" id="inline-vehicle-picker">
+                  <!-- Trigger button that toggles inline expansion -->
+                  <button
+                    type="button"
+                    id="reg-vehicle-trigger"
+                    class="vehicle-trigger-btn"
+                    aria-expanded="false"
+                    aria-controls="vehicle-options-inline"
+                  >
+                    <span class="v-trigger-icon" id="vehicle-trigger-icon" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="5" cy="16.5" r="3.2"></circle>
+                        <circle cx="19" cy="16.5" r="3.2"></circle>
+                        <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+                        <path d="M12.5 11l1.8-5h2.2"></path>
+                        <path d="M9 11l2.5-3"></path>
+                        <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+                      </svg>
+                    </span>
+                    <span class="v-trigger-content">
+                      <span class="v-trigger-title" id="vehicle-trigger-title">Motorbike / Scooter</span>
+                      <span class="v-trigger-desc" id="vehicle-trigger-desc">Fast local delivery</span>
+                    </span>
+                    <span class="v-trigger-chevron" aria-hidden="true">
+                      <svg class="chevron-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <!-- Inline Expandable Options List -->
+                  <div
+                    id="vehicle-options-inline"
+                    class="vehicle-options-inline"
+                    role="radiogroup"
+                    aria-label="Delivery vehicle options"
+                    style="display: none;"
+                  >
+                    <!-- OPTION 1: MOTORBIKE -->
+                    <button
+                      type="button"
+                      class="inline-opt-row selected"
+                      data-value="motorbike"
+                      role="radio"
+                      aria-checked="true"
+                    >
+                      <span class="inline-opt-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="5" cy="16.5" r="3.2"></circle>
+                          <circle cx="19" cy="16.5" r="3.2"></circle>
+                          <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+                          <path d="M12.5 11l1.8-5h2.2"></path>
+                          <path d="M9 11l2.5-3"></path>
+                          <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+                        </svg>
+                      </span>
+                      <span class="inline-opt-info">
+                        <span class="inline-opt-title">Motorbike / Scooter</span>
+                        <span class="inline-opt-desc">Fast local delivery</span>
+                      </span>
+                      <span class="inline-opt-check" aria-hidden="true">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                    </button>
+
+                    <!-- OPTION 2: BICYCLE -->
+                    <button
+                      type="button"
+                      class="inline-opt-row"
+                      data-value="bicycle"
+                      role="radio"
+                      aria-checked="false"
+                    >
+                      <span class="inline-opt-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="5.5" cy="16.5" r="3.2"></circle>
+                          <circle cx="18.5" cy="16.5" r="3.2"></circle>
+                          <path d="M12 16.5l-3.5-5.5H5"></path>
+                          <path d="M12 16.5V13l3.5-3.5 2 2"></path>
+                          <path d="M12 13l3-5H18"></path>
+                          <circle cx="14" cy="5.5" r="1.5" fill="currentColor"></circle>
+                        </svg>
+                      </span>
+                      <span class="inline-opt-info">
+                        <span class="inline-opt-title">Bicycle / E-Bike</span>
+                        <span class="inline-opt-desc">Light local delivery</span>
+                      </span>
+                      <span class="inline-opt-check" aria-hidden="true">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                    </button>
+
+                    <!-- OPTION 3: CAR -->
+                    <button
+                      type="button"
+                      class="inline-opt-row"
+                      data-value="car"
+                      role="radio"
+                      aria-checked="false"
+                    >
+                      <span class="inline-opt-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 17h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-1.5l-2.5-4h-6L6.5 9H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2z"></path>
+                          <circle cx="7.5" cy="17" r="2.2" fill="currentColor"></circle>
+                          <circle cx="16.5" cy="17" r="2.2" fill="currentColor"></circle>
+                        </svg>
+                      </span>
+                      <span class="inline-opt-info">
+                        <span class="inline-opt-title">Car / Light Vehicle</span>
+                        <span class="inline-opt-desc">Larger delivery capacity</span>
+                      </span>
+                      <span class="inline-opt-check" aria-hidden="true">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- SECTION 3: ACCOUNT SECURITY -->
+          <fieldset class="form-section">
+            <legend class="section-legend">
+              <span class="legend-index">03</span>
+              <span class="legend-title">Account Security</span>
+            </legend>
+            <p class="section-desc">Create a password to access your delivery console.</p>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="reg-password" class="field-label">
+                  <span>Password</span>
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <div class="input-password-wrapper">
+                  <input
+                    id="reg-password"
+                    name="password"
+                    type="password"
+                    minlength="10"
+                    class="field-input field-input-pwd"
+                    placeholder="Minimum 10 characters"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <button type="button" class="btn-toggle-password" data-target="reg-password" aria-label="Toggle password visibility">
+                    <svg class="icon-eye-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="icon-eye-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+                <span class="field-hint">Must be at least 10 characters long.</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field-group">
+                <label for="reg-confirm-password" class="field-label">
+                  <span>Confirm Password</span>
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <div class="input-password-wrapper">
+                  <input
+                    id="reg-confirm-password"
+                    name="confirm_password"
+                    type="password"
+                    minlength="10"
+                    class="field-input field-input-pwd"
+                    placeholder="Repeat your password"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <button type="button" class="btn-toggle-password" data-target="reg-confirm-password" aria-label="Toggle password visibility">
+                    <svg class="icon-eye-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="icon-eye-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Error notice box (elegantly positioned above primary action) -->
+          <div id="register-error" class="reg-error-box" style="display: none;" role="alert"></div>
+
+          <!-- Primary Submit Action -->
+          <div class="reg-submit-wrap">
+            <button id="btn-register-submit" type="submit" class="reg-submit-btn">
+              <span>CREATE RIDER ACCOUNT</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <p class="reg-review-note">
+            Your rider account is created immediately. You will sign in to access the delivery network.
+          </p>
+        </form>
+
+        <!-- Registration Success Card (V1 Instant Account Creation) -->
+        <div id="register-success-card" class="reg-success-card" style="display: none;">
+          <div class="reg-success-icon-wrap">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="reg-success-badge">ACCOUNT CREATED</div>
+          <h2 class="reg-success-title">You're ready to ride.</h2>
+          <p class="reg-success-subtitle">Your Shopystreet Riders account has been created successfully.</p>
+          <div class="reg-success-meta">
+            <div class="reg-success-meta-row">
+              <span class="reg-success-meta-label">Rider:</span>
+              <span id="reg-success-name" class="reg-success-meta-val">--</span>
+            </div>
+            <div class="reg-success-meta-row">
+              <span class="reg-success-meta-label">Registered Phone:</span>
+              <span id="reg-success-phone" class="reg-success-meta-val">--</span>
+            </div>
+          </div>
+          <button id="btn-reg-success-login" type="button" class="btn-dominant-accept reg-success-btn">
+            <span>SIGN IN TO CONTINUE &rarr;</span>
+          </button>
+        </div>
+
+        <!-- Secondary Navigation Links -->
+        <nav class="reg-secondary-nav" aria-label="Existing rider navigation">
+          <button type="button" class="reg-nav-item" id="link-register-to-login">
+            <span class="reg-nav-prompt">Already have an account?</span>
+            <span class="reg-nav-action">Sign in &rarr;</span>
+          </button>
+        </nav>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 0C: APPLICATION STATUS & APPROVAL LIFECYCLE (Checkpoint 3) -->
+  <section id="screen-application-status" class="screen-auth" style="display: none;">
+    <div class="auth-hero">
+      <div class="auth-brand-icon" title="Shopystreet Riders">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <h1 class="auth-brand-title">
+        SHOPYSTREET
+        <span class="brand-tag">RIDERS</span>
+      </h1>
+      <p class="auth-brand-subtitle">Application Status Verification</p>
+    </div>
+
+    <!-- Status Lookup Form -->
+    <div id="status-lookup-card" class="auth-card">
+      <div class="auth-card-header">
+        <h2>Check Application Status</h2>
+        <p>Enter your phone number and password to check your application review status.</p>
+      </div>
+
+      <form id="status-lookup-form" class="auth-form" novalidate>
+        <div id="status-lookup-error" class="auth-error-box" style="display: none;" role="alert"></div>
+
+        <div class="form-group">
+          <label for="status-phone">Phone Number</label>
+          <input
+            id="status-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="e.g. +263 77 123 4567"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="status-password">Password</label>
+          <input
+            id="status-password"
+            name="password"
+            type="password"
+            placeholder="Your account password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button id="btn-status-lookup-submit" type="submit" class="btn-dominant-accept auth-submit-btn">
+          <span>CHECK APPLICATION STATUS</span>
+        </button>
+      </form>
+
+      <nav class="auth-nav-links" aria-label="Rider navigation">
+        <button type="button" class="auth-nav-item" id="link-status-to-login">
+          <span class="auth-nav-prompt">Already have an account?</span>
+          <span class="auth-nav-action">Sign in &rarr;</span>
+        </button>
+        <button type="button" class="auth-nav-item" id="link-status-to-register">
+          <span class="auth-nav-prompt">New to Shopystreet Riders?</span>
+          <span class="auth-nav-action">Apply to become a rider &rarr;</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Status Result Card -->
+    <div id="status-result-card" class="auth-card" style="display: none;">
+      <div class="auth-card-header">
+        <div class="status-badge-row">
+          <span id="app-status-badge" class="badge-status-pill badge-pending">PENDING REVIEW</span>
+        </div>
+        <h2 id="app-status-title">Application Under Review</h2>
+        <p id="app-status-subtitle">Your application has been received and is waiting for fleet manager review.</p>
+      </div>
+
+      <div class="app-summary-box">
+        <div class="summary-row">
+          <span class="label">Applicant</span>
+          <span id="app-info-name" class="val">--</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Phone</span>
+          <span id="app-info-phone" class="val">--</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Vehicle</span>
+          <span id="app-info-vehicle" class="val badge-vehicle">Motorbike</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Application ID</span>
+          <span id="app-info-id" class="val mono">--</span>
+        </div>
+      </div>
+
+      <!-- State explanation boxes -->
+      <div id="app-state-pending-box" class="state-callout callout-pending">
+        <h4>Review & Verification In Progress</h4>
+        <p>Fleet administrators verify national ID credentials and vehicle details before account activation. You will receive notification once approved.</p>
+        <div class="lifecycle-steps">
+          <div class="step completed">
+            <span class="step-icon">✓</span>
+            <span class="step-text">Application Submitted</span>
+          </div>
+          <div class="step active">
+            <span class="step-icon">⏳</span>
+            <span class="step-text">Fleet Manager Review</span>
+          </div>
+          <div class="step">
+            <span class="step-icon">○</span>
+            <span class="step-text">Account Activation & Delivery Access</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="app-state-approved-box" class="state-callout callout-approved" style="display: none;">
+        <h4>✓ Application Approved!</h4>
+        <p>Congratulations! Your rider account is active and verified. You can now log in to start receiving and delivering orders.</p>
+        <button id="btn-app-login-now" type="button" class="btn-dominant-accept auth-submit-btn" style="margin-top: 14px;">
+          <span>SIGN IN TO START DELIVERING &rarr;</span>
+        </button>
+      </div>
+
+      <div id="app-state-rejected-box" class="state-callout callout-rejected" style="display: none;">
+        <h4>Application Not Approved</h4>
+        <p id="app-rejection-reason">Your application was not approved by fleet management at this time.</p>
+      </div>
+
+      <div class="auth-result-actions">
+        <button id="btn-status-refresh" type="button" class="btn-secondary-action">
+          <span>🔄 Check Again</span>
+        </button>
+        <button id="btn-status-back-login" type="button" class="btn-secondary-action">
+          <span>Sign in &rarr;</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN SCROLLABLE CONTENT -->
+  <main class="app-content">
+
+    <!-- SCREEN 1: HOME -->
+    <section id="screen-home" class="screen active">
+
+      <!-- RIDER SHIFT STATUS BAR -->
+      <div class="status-card">
+        <div class="status-left">
+          <div class="status-beacon-wrap">
+            <div id="status-indicator" class="status-indicator online"></div>
+            <div class="status-beacon-halo"></div>
+          </div>
+          <div>
+            <div id="status-title" class="status-title">ONLINE & AVAILABLE</div>
+            <div id="status-subtitle" class="status-subtitle">Ready to receive delivery orders</div>
+          </div>
+        </div>
+        <button id="btn-toggle-online" class="switch-btn go-offline">GO OFFLINE</button>
+      </div>
+
+      <!-- ACTIVE DELIVERY BANNER (When job in progress) -->
+      <div id="active-banner" class="active-banner" style="display: none;">
+        <div class="active-banner-header">
+          <div class="active-pill">
+            <span class="active-pulse-dot"></span>
+            <span>ACTIVE DELIVERY</span>
+          </div>
+          <span id="active-banner-eta" class="active-eta">ETA ~12 min</span>
+        </div>
+        <h3 id="active-banner-merchant">Bamboo Chicken Select</h3>
+        <div class="active-banner-sub">
+          <span id="active-banner-status">Heading to Pickup</span>
+          <span class="active-arrow">Tap to view &rarr;</span>
+        </div>
+      </div>
+
+      <!-- DELIVERY REQUESTS (THE DOMINANT HERO ELEMENT) -->
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Delivery Requests</h2>
+          <span id="requests-count-badge" class="count-badge" style="display: none;">0</span>
+        </div>
+        <span id="requests-count" class="requests-live-state">Monitoring incoming requests</span>
+      </div>
+
+      <!-- Dominant incoming requests container -->
+      <div id="requests-container" class="cards-list requests-grid">
+        <!-- Rendered dynamically or clean honest empty state -->
+        <div class="empty-state">
+          <div class="empty-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16v-2"></path>
+              <polyline points="3.29 7 12 12 20.71 7"></polyline>
+              <line x1="12" y1="22" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3>No delivery requests yet.</h3>
+          <p>Incoming deliveries from Bamboo Chicken and partner apps will appear here in real time.</p>
+        </div>
+      </div>
+
+      <!-- TODAY'S REAL ACTIVITY SECTION -->
+      <div class="section-header" style="margin-top: 28px;">
+        <div class="section-title-wrap">
+          <h2>Today's Activity</h2>
+          <span class="activity-date-pill" id="today-date-pill">Today</span>
+        </div>
+      </div>
+
+      <div class="activity-summary-card">
+        <div class="activity-metric">
+          <span class="metric-label">EARNED TODAY</span>
+          <div class="metric-val" id="home-today-earnings">$0.00</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="activity-metric">
+          <span class="metric-label">COMPLETED TRIPS</span>
+          <div class="metric-val" id="home-today-trips">0</div>
+        </div>
+      </div>
+
+      <div id="home-recent-activity-container" class="cards-list" style="margin-top: 12px;">
+        <!-- Real completed trips or honest empty state -->
+        <div class="empty-state compact">
+          <p>No completed deliveries recorded today yet.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SCREEN 2: DELIVERIES (Active & Today's Registry) -->
+    <section id="screen-active" class="screen">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Current Delivery</h2>
+        </div>
+        <span id="active-job-id" class="job-id-pill"></span>
+      </div>
+
+      <!-- If no active delivery -->
+      <div id="active-empty" class="empty-state">
+        <div class="empty-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <h3>No active delivery in progress</h3>
+        <p>You are currently available. Incoming deliveries will appear on your Home tab.</p>
+      </div>
+
+      <!-- Active Delivery Card details -->
+      <div id="active-card" class="delivery-detail-card" style="display: none;">
+        <div class="detail-header-row">
+          <div class="status-pill-lg" id="active-status-pill">
+            <span class="status-dot-pulse"></span>
+            <span id="active-status-text">ASSIGNED</span>
+          </div>
+          <div class="payout-badge-lg">
+            <span class="payout-sm-label">PAYOUT</span>
+            <span id="active-payout" class="payout-lg-amt">$0.00</span>
+          </div>
+        </div>
+
+        <div class="merchant-hero-card">
+          <h3 id="active-merchant">Merchant Name</h3>
+          <div class="order-id-meta" id="active-order-id">Order #BC-0000</div>
+        </div>
+
+        <!-- Stepper Visualizer -->
+        <div class="route-stepper">
+          <div class="step-card">
+            <div class="step-icon pickup">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41"></path>
+              </svg>
+            </div>
+            <div class="step-content">
+              <div class="step-label">PICKUP POINT</div>
+              <div id="active-pickup-name" class="step-name">Bamboo Chicken — CBD</div>
+              <div id="active-pickup-addr" class="step-addr">88 Kwame Nkrumah Ave, Harare CBD</div>
+              <div id="active-pickup-notes" class="step-notes" style="display: none;"></div>
+            </div>
+          </div>
+
+          <div class="stepper-line"></div>
+
+          <div class="step-card">
+            <div class="step-icon dropoff">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="step-content">
+              <div class="step-label">DESTINATION</div>
+              <div id="active-dropoff-name" class="step-name">Customer Name</div>
+              <div id="active-dropoff-addr" class="step-addr">Customer Address</div>
+              <div id="active-dropoff-instructions" class="step-notes" style="display: none;"></div>
+              <div id="active-customer-phone-wrap" class="phone-action-wrap">
+                <a id="active-customer-phone" href="#" class="call-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  <span>Call Customer</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Package Summary -->
+        <div class="package-card">
+          <div class="package-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <strong>Package Summary</strong>
+          </div>
+          <p id="active-package-desc">Standard sealed package</p>
+        </div>
+
+        <!-- Primary Action Button for delivery progression -->
+        <button id="btn-active-action" class="btn-primary-action">
+          <span>START HEADING TO PICKUP</span>
+        </button>
+
+        <!-- Turn-by-turn navigation shortcut -->
+        <button id="btn-navigate" class="btn-secondary-action">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+          </svg>
+          <span>Open Turn-by-Turn GPS Navigation</span>
+        </button>
+
+        <!-- Incident reporting action -->
+        <button id="btn-open-incident" type="button" class="btn-incident-action">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>Report an Issue with this Delivery</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: EARNINGS -->
+    <section id="screen-earnings" class="screen">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Earnings Overview</h2>
+        </div>
+      </div>
+
+      <div class="earnings-grid">
+        <div class="stat-card hero-stat">
+          <div class="stat-top">
+            <span class="stat-label">TODAY'S EARNINGS</span>
+            <span class="stat-pill">SETTLED</span>
+          </div>
+          <div id="stat-today-earnings" class="stat-val">$0.00</div>
+          <div id="stat-today-trips" class="stat-sub">0 trips completed</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">THIS WEEK</span>
+          </div>
+          <div id="stat-week-earnings" class="stat-val">$0.00</div>
+          <div id="stat-week-trips" class="stat-sub">0 trips completed</div>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 24px;">
+        <div class="section-title-wrap">
+          <h2>Completed Deliveries</h2>
+        </div>
+      </div>
+
+      <div id="payouts-container" class="cards-list">
+        <div class="empty-state">
+          <div class="empty-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3>No completed deliveries yet.</h3>
+          <p>Real completed deliveries and payout settlements will appear here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: PROFILE & SETTINGS -->
+    <section id="screen-profile" class="screen">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Rider Account</h2>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-header-wrap">
+          <div class="profile-avatar">
+            <span id="profile-avatar">--</span>
+          </div>
+          <div class="profile-meta">
+            <h3 id="profile-name">Rider Account</h3>
+            <p id="profile-phone">Loading...</p>
+            <div class="badge-row">
+              <span id="profile-status-tag" class="verified-tag">ACTIVE RIDER</span>
+              <span class="zone-tag">HARARE FLEET</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="profile-form" class="profile-form">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input id="input-rider-name" type="text" required />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input id="input-rider-phone" type="tel" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vehicle Type</label>
+              <select id="input-rider-vehicle">
+                <option value="motorbike">Motorbike</option>
+                <option value="bicycle">Bicycle</option>
+                <option value="car">Car</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Registration</label>
+              <input id="input-rider-reg" type="text" style="text-transform: uppercase;" required />
+            </div>
+          </div>
+          <button type="submit" class="btn-save-profile">Save Profile Changes</button>
+          
+          <button type="button" id="btn-logout" class="btn-logout" title="Log out from Shopystreet Riders">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Log Out</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="app-version-footer">
+        Shopystreet Riders
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION BAR (WhatsApp / Instagram Inspired, Sky Blue Accent) -->
+  <nav class="bottom-nav">
+    <div class="nav-inner">
+      <button class="nav-item active" data-tab="home">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <span>Home</span>
+      </button>
+
+      <button class="nav-item" data-tab="deliveries">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <span id="nav-active-dot" class="nav-dot-indicator" style="display: none;"></span>
+        </div>
+        <span>Deliveries</span>
+      </button>
+
+      <button class="nav-item" data-tab="earnings">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span>Earnings</span>
+      </button>
+
+      <button class="nav-item" data-tab="profile">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <span>Profile</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL 1: DELIVERY REQUEST SHEET (Full Detail) -->
+  <div id="modal-request" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      
+      <div class="sheet-top-badge">
+        <span class="badge-pulse-glow"></span>
+        <span>NEW DELIVERY REQUEST</span>
+      </div>
+
+      <div class="sheet-merchant-row">
+        <div>
+          <span class="sheet-label">SOURCE APP</span>
+          <h2 id="modal-req-merchant">Bamboo Chicken Select</h2>
+          <span id="modal-req-source-tag" class="source-tag">BAMBOO SELECT</span>
+          <span id="modal-req-job-id" class="order-id-tag">JOB-0000</span>
+        </div>
+        <div class="sheet-payout-box">
+          <span class="payout-micro-label">RIDER PAYOUT</span>
+          <div id="modal-req-payout" class="payout-big-val">$0.00</div>
+        </div>
+      </div>
+
+      <!-- Area Route details (Privacy preserved: general areas only) -->
+      <div class="sheet-route-box">
+        <div class="sheet-route-row">
+          <div class="sheet-route-dot pickup"></div>
+          <div>
+            <span class="sheet-route-title">PICKUP AREA</span>
+            <div id="modal-req-pickup" class="sheet-route-val">Pickup Point</div>
+          </div>
+        </div>
+        <div class="sheet-route-divider"></div>
+        <div class="sheet-route-row">
+          <div class="sheet-route-dot dropoff"></div>
+          <div>
+            <span class="sheet-route-title">DROP-OFF AREA</span>
+            <div id="modal-req-dropoff" class="sheet-route-val">Drop-off Area</div>
+            <span class="sheet-privacy-note">Exact street address unlocked immediately upon acceptance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="sheet-metrics-grid">
+        <div class="metric-box">
+          <span class="metric-box-label">DISTANCE</span>
+          <div id="modal-req-distance" class="metric-box-val">0.0 km</div>
+        </div>
+        <div class="metric-box">
+          <span class="metric-box-label">ESTIMATED ETA</span>
+          <div id="modal-req-eta" class="metric-box-val">~12 min</div>
+        </div>
+      </div>
+
+      <!-- Error / Concurrency banner -->
+      <div id="modal-req-error" class="modal-error-box" style="display: none;"></div>
+
+      <!-- ONE DOMINANT ACCEPT BUTTON -->
+      <button id="btn-accept-job" class="btn-dominant-accept">
+        <span>ACCEPT DELIVERY</span>
+      </button>
+
+      <button id="btn-close-request" class="btn-sheet-dismiss">
+        <span>Dismiss</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 2: NOTIFICATIONS FEED -->
+  <div id="modal-notifications" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <span class="sheet-title">Live Notifications</span>
+        <button id="btn-close-notif" class="close-btn">&times;</button>
+      </div>
+
+      <div id="notifications-list" class="cards-list">
+        <div class="empty-state">
+          <h3>No notifications</h3>
+          <p>Important delivery alerts and assignment updates will appear here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: PROOF OF DELIVERY (Near Destination Arrival & Confirmation) -->
+  <div id="modal-proof" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      
+      <div class="sheet-top-badge" style="background: linear-gradient(135deg, #059669 0%, #10B981 100%);">
+        <span class="badge-pulse-glow" style="background: #FFFFFF; box-shadow: 0 0 8px #FFFFFF;"></span>
+        <span>DELIVERY ARRIVED</span>
+      </div>
+
+      <div class="sheet-header" style="margin-bottom: 8px;">
+        <div>
+          <h2 style="font-size: 20px; font-weight: 900; color: var(--text-main); margin: 0;">Proof of Delivery</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin: 2px 0 0 0;">Confirm recipient handover to complete this delivery.</p>
+        </div>
+        <button id="btn-close-proof" type="button" class="close-btn">&times;</button>
+      </div>
+
+      <div class="proof-job-summary" style="background: #F8FAFD; border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin: 12px 0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">RECIPIENT</span>
+          <span id="proof-job-id" style="font-size: 11px; font-weight: 700; font-family: monospace; color: var(--sky);">--</span>
+        </div>
+        <div id="proof-customer-name" style="font-size: 15px; font-weight: 850; color: var(--text-main);">Customer</div>
+        <div id="proof-dropoff-addr" style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Address</div>
+      </div>
+
+      <form id="proof-form" class="auth-form" style="margin-top: 8px;">
+        <div id="proof-error" class="modal-error-box" style="display: none;"></div>
+
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="proof-type-select">Proof Method</label>
+          <select id="proof-type-select" style="width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 650; color: var(--text-main); background: #FAFBFD;">
+            <option value="recipient_name">Handed to Recipient (Name Confirmation)</option>
+            <option value="delivery_code">Customer Delivery Code</option>
+            <option value="signature">Signed by Recipient</option>
+            <option value="photo">Photo / Safe Location Drop</option>
+          </select>
+        </div>
+
+        <div id="proof-code-group" class="form-group" style="margin-bottom: 12px; display: none;">
+          <label for="proof-verification-code">Customer Delivery Code</label>
+          <input
+            id="proof-verification-code"
+            type="text"
+            inputmode="numeric"
+            placeholder="e.g. 4-digit code"
+            style="width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; font-size: 16px; font-weight: 800; letter-spacing: 2px; text-align: center; color: var(--text-main); background: #FAFBFD;"
+          />
+        </div>
+
+        <div id="proof-ref-group" class="form-group" style="margin-bottom: 16px;">
+          <label id="proof-ref-label" for="proof-reference-input">Recipient Name / Receiver Note</label>
+          <input
+            id="proof-reference-input"
+            type="text"
+            placeholder="Name of person receiving the package"
+            style="width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 650; color: var(--text-main); background: #FAFBFD;"
+            required
+          />
+        </div>
+
+        <button id="btn-submit-proof" type="submit" class="btn-dominant-accept" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); width: 100%; min-height: 52px; font-size: 15px; font-weight: 900;">
+          <span>CONFIRM DELIVERED ✓</span>
+        </button>
+
+        <button id="btn-cancel-proof" type="button" class="btn-sheet-dismiss" style="margin-top: 10px;">
+          <span>Cancel & Return to Route</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: INCIDENT REPORTING -->
+  <div id="modal-incident" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+
+      <div class="sheet-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #FEE2E2; color: #DC2626; display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 style="font-size: 18px; font-weight: 900; color: var(--text-main); margin: 0;">Report an Issue</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Notify support about a delivery issue.</p>
+          </div>
+        </div>
+        <button id="btn-close-incident" type="button" class="close-btn">&times;</button>
+      </div>
+
+      <form id="incident-form" class="auth-form" style="margin-top: 10px;">
+        <div id="incident-error" class="modal-error-box" style="display: none;"></div>
+
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="incident-type-select">Issue Category</label>
+          <select id="incident-type-select" style="width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; font-size: 14px; font-weight: 650; color: var(--text-main); background: #FAFBFD;">
+            <option value="customer_unavailable">Customer Unavailable / Unreachable</option>
+            <option value="merchant_delay">Merchant / Pickup Delay</option>
+            <option value="damaged_package">Damaged Package / Spilled Food</option>
+            <option value="wrong_address">Incorrect Delivery Address</option>
+            <option value="vehicle_breakdown">Vehicle Breakdown / Puncture</option>
+            <option value="other">Other Delivery Issue</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="incident-notes-input">Details / Notes</label>
+          <textarea
+            id="incident-notes-input"
+            rows="3"
+            placeholder="Briefly describe what happened so fleet dispatch can assist..."
+            style="width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; font-size: 13.5px; font-weight: 550; color: var(--text-main); background: #FAFBFD; font-family: inherit; resize: vertical;"
+            required
+          ></textarea>
+        </div>
+
+        <button id="btn-submit-incident" type="submit" class="btn-primary-action" style="background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);">
+          <span>SUBMIT REPORT</span>
+        </button>
+
+        <button id="btn-cancel-incident" type="button" class="btn-sheet-dismiss" style="margin-top: 10px;">
+          <span>Cancel</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast">Action completed</div>
+
+  <!-- VANILLA JAVASCRIPT APPLICATION -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
