@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Shopystreet Riders — Courier Network</title>
+  <meta name="description" content="Shopystreet Riders — Universal courier execution platform for Bamboo Chicken and multi-source deliveries." />
+  <meta name="theme-color" content="#070D18" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Riders" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  
+  <!-- Modern confident typography: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+
+  <!-- TOP APP BAR (Futuristic Deep Ink with Sky Blue Accents) -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <div class="brand-icon" title="Shopystreet Riders Courier">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="5" cy="16.5" r="3.2"></circle>
+          <circle cx="19" cy="16.5" r="3.2"></circle>
+          <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+          <path d="M12.5 11l1.8-5h2.2"></path>
+          <path d="M9 11l2.5-3"></path>
+          <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>
+          SHOPYSTREET
+          <span class="brand-tag">RIDERS</span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <!-- PWA Install Button (shown when installable) -->
+      <button id="install-btn" class="install-btn" title="Install Riders App">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Install App</span>
+      </button>
+
+      <!-- Notifications Button -->
+      <button id="btn-notifications" class="icon-btn" aria-label="Notifications">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <span id="notif-badge" class="badge-dot" style="display: none;"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SCREEN 0A: RIDER LOGIN (Production Worker Authentication) -->
+  <section id="screen-login" class="screen-auth" style="display: none;">
+    <div class="auth-hero">
+      <div class="auth-brand-icon" title="Shopystreet Riders">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="5" cy="16.5" r="3.2"></circle>
+          <circle cx="19" cy="16.5" r="3.2"></circle>
+          <path d="M5 16.5l4-5.5h4l3.5 5.5"></path>
+          <path d="M12.5 11l1.8-5h2.2"></path>
+          <path d="M9 11l2.5-3"></path>
+          <circle cx="11.5" cy="5" r="1.5" fill="currentColor"></circle>
+        </svg>
+      </div>
+      <h1 class="auth-brand-title">
+        SHOPYSTREET
+        <span class="brand-tag">RIDERS</span>
+      </h1>
+      <p class="auth-brand-subtitle">Courier Network Partner Portal</p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2>Rider Sign In</h2>
+        <p>Sign in with your registered phone number and password to access the delivery network.</p>
+      </div>
+
+      <form id="login-form" class="auth-form" novalidate>
+        <div id="login-error" class="auth-error-box" style="display: none;" role="alert"></div>
+
+        <div class="form-group">
+          <label for="login-phone">Phone Number</label>
+          <input
+            id="login-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="e.g. +263 77 123 4567"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input
+            id="login-password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button id="btn-login-submit" type="submit" class="btn-dominant-accept auth-submit-btn">
+          <span>LOGIN</span>
+        </button>
+      </form>
+
+      <div class="auth-nav-links">
+        <button type="button" class="auth-text-link" id="link-login-to-register">
+          New Courier? <strong>Apply to Join Fleet &rarr;</strong>
+        </button>
+        <button type="button" class="auth-text-link secondary" id="link-login-to-status">
+          Applied already? <strong>Check Application Status &rarr;</strong>
+        </button>
+      </div>
+
+      <div class="auth-footer-notice">
+        <span>Authorized Shopystreet courier fleet personnel only.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 0B: RIDER REGISTRATION (Checkpoint 3 — Join Fleet Application) -->
+  <section id="screen-register" class="screen-auth" style="display: none;">
+    <div class="auth-hero">
+      <div class="auth-brand-icon" title="Shopystreet Riders">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="8.5" cy="7" r="4"></circle>
+          <line x1="20" y1="8" x2="20" y2="14"></line>
+          <line x1="23" y1="11" x2="17" y2="11"></line>
+        </svg>
+      </div>
+      <h1 class="auth-brand-title">
+        SHOPYSTREET
+        <span class="brand-tag">RIDERS</span>
+      </h1>
+      <p class="auth-brand-subtitle">Courier Partner Application</p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2>Join Courier Fleet</h2>
+        <p>Apply to deliver for Bamboo Chicken Select, Shopystreet SEND, and local merchant partners.</p>
+      </div>
+
+      <form id="register-form" class="auth-form" novalidate>
+        <div id="register-error" class="auth-error-box" style="display: none;" role="alert"></div>
+
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input
+            id="reg-name"
+            name="name"
+            type="text"
+            placeholder="e.g. Chipo Banda"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-phone">Phone Number</label>
+          <input
+            id="reg-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="e.g. +263 77 123 4567"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-national-id">National ID Number</label>
+          <input
+            id="reg-national-id"
+            name="national_id_number"
+            type="text"
+            placeholder="e.g. 63-123456-X-42"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reg-vehicle-type">Vehicle Type</label>
+          <select id="reg-vehicle-type" name="vehicle_type" class="auth-select" required>
+            <option value="motorbike" selected>Motorbike / Scooter</option>
+            <option value="bicycle">Bicycle / E-Bike</option>
+            <option value="car">Car / Light Vehicle</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input
+            id="reg-password"
+            name="password"
+            type="password"
+            minlength="10"
+            placeholder="Minimum 10 characters"
+            autocomplete="new-password"
+            required
+          />
+          <span class="field-hint">Must be at least 10 characters long.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-confirm-password">Confirm Password</label>
+          <input
+            id="reg-confirm-password"
+            name="confirm_password"
+            type="password"
+            minlength="10"
+            placeholder="Repeat password"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+
+        <button id="btn-register-submit" type="submit" class="btn-dominant-accept auth-submit-btn">
+          <span>SUBMIT APPLICATION</span>
+        </button>
+      </form>
+
+      <div class="auth-nav-links">
+        <button type="button" class="auth-text-link" id="link-register-to-login">
+          &larr; Already registered? <strong>Sign In</strong>
+        </button>
+        <button type="button" class="auth-text-link secondary" id="link-register-to-status">
+          Check status of existing application &rarr;
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 0C: APPLICATION STATUS & APPROVAL LIFECYCLE (Checkpoint 3) -->
+  <section id="screen-application-status" class="screen-auth" style="display: none;">
+    <div class="auth-hero">
+      <div class="auth-brand-icon" title="Shopystreet Riders">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <h1 class="auth-brand-title">
+        SHOPYSTREET
+        <span class="brand-tag">RIDERS</span>
+      </h1>
+      <p class="auth-brand-subtitle">Application Status Verification</p>
+    </div>
+
+    <!-- Status Lookup Form -->
+    <div id="status-lookup-card" class="auth-card">
+      <div class="auth-card-header">
+        <h2>Check Application Status</h2>
+        <p>Enter your registered phone number and password to view your onboarding & review status.</p>
+      </div>
+
+      <form id="status-lookup-form" class="auth-form" novalidate>
+        <div id="status-lookup-error" class="auth-error-box" style="display: none;" role="alert"></div>
+
+        <div class="form-group">
+          <label for="status-phone">Phone Number</label>
+          <input
+            id="status-phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            placeholder="e.g. +263 77 123 4567"
+            autocomplete="tel"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="status-password">Password</label>
+          <input
+            id="status-password"
+            name="password"
+            type="password"
+            placeholder="Your account password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button id="btn-status-lookup-submit" type="submit" class="btn-dominant-accept auth-submit-btn">
+          <span>CHECK APPLICATION STATUS</span>
+        </button>
+      </form>
+
+      <div class="auth-nav-links">
+        <button type="button" class="auth-text-link" id="link-status-to-login">
+          &larr; Back to <strong>Sign In</strong>
+        </button>
+        <button type="button" class="auth-text-link secondary" id="link-status-to-register">
+          New Courier? <strong>Apply to Join Fleet &rarr;</strong>
+        </button>
+      </div>
+    </div>
+
+    <!-- Status Result Card -->
+    <div id="status-result-card" class="auth-card" style="display: none;">
+      <div class="auth-card-header">
+        <div class="status-badge-row">
+          <span id="app-status-badge" class="badge-status-pill badge-pending">PENDING REVIEW</span>
+        </div>
+        <h2 id="app-status-title">Application Under Review</h2>
+        <p id="app-status-subtitle">Your application has been received and is waiting for fleet manager review.</p>
+      </div>
+
+      <div class="app-summary-box">
+        <div class="summary-row">
+          <span class="label">Applicant</span>
+          <span id="app-info-name" class="val">--</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Phone</span>
+          <span id="app-info-phone" class="val">--</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Vehicle</span>
+          <span id="app-info-vehicle" class="val badge-vehicle">Motorbike</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Application ID</span>
+          <span id="app-info-id" class="val mono">--</span>
+        </div>
+      </div>
+
+      <!-- State explanation boxes -->
+      <div id="app-state-pending-box" class="state-callout callout-pending">
+        <h4>Review & Verification In Progress</h4>
+        <p>Fleet administrators verify national ID credentials and vehicle details before account activation. You will receive notification once approved.</p>
+        <div class="lifecycle-steps">
+          <div class="step completed">
+            <span class="step-icon">✓</span>
+            <span class="step-text">Application Submitted</span>
+          </div>
+          <div class="step active">
+            <span class="step-icon">⏳</span>
+            <span class="step-text">Fleet Manager Review</span>
+          </div>
+          <div class="step">
+            <span class="step-icon">○</span>
+            <span class="step-text">Account Activation & Delivery Access</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="app-state-approved-box" class="state-callout callout-approved" style="display: none;">
+        <h4>✓ Application Approved!</h4>
+        <p>Congratulations! Your rider account is active and verified. You can now log in to start receiving and delivering orders.</p>
+        <button id="btn-app-login-now" type="button" class="btn-dominant-accept auth-submit-btn" style="margin-top: 14px;">
+          <span>SIGN IN TO START DELIVERING &rarr;</span>
+        </button>
+      </div>
+
+      <div id="app-state-rejected-box" class="state-callout callout-rejected" style="display: none;">
+        <h4>Application Not Approved</h4>
+        <p id="app-rejection-reason">Your application was not approved by fleet management at this time.</p>
+      </div>
+
+      <div class="auth-result-actions">
+        <button id="btn-status-refresh" type="button" class="btn-secondary-action">
+          <span>🔄 Check Again</span>
+        </button>
+        <button id="btn-status-back-login" type="button" class="btn-secondary-action">
+          <span>&larr; Back to Sign In</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN SCROLLABLE CONTENT -->
+  <main class="app-content">
+
+    <!-- SCREEN 1: HOME -->
+    <section id="screen-home" class="screen active">
+
+      <!-- RIDER SHIFT STATUS BAR -->
+      <div class="status-card">
+        <div class="status-left">
+          <div class="status-beacon-wrap">
+            <div id="status-indicator" class="status-indicator online"></div>
+            <div class="status-beacon-halo"></div>
+          </div>
+          <div>
+            <div id="status-title" class="status-title">ONLINE & AVAILABLE</div>
+            <div id="status-subtitle" class="status-subtitle">Ready to receive delivery orders</div>
+          </div>
+        </div>
+        <button id="btn-toggle-online" class="switch-btn go-offline">GO OFFLINE</button>
+      </div>
+
+      <!-- ACTIVE DELIVERY BANNER (When job in progress) -->
+      <div id="active-banner" class="active-banner" style="display: none;">
+        <div class="active-banner-header">
+          <div class="active-pill">
+            <span class="active-pulse-dot"></span>
+            <span>ACTIVE DELIVERY</span>
+          </div>
+          <span id="active-banner-eta" class="active-eta">ETA ~12 min</span>
+        </div>
+        <h3 id="active-banner-merchant">Bamboo Chicken Select</h3>
+        <div class="active-banner-sub">
+          <span id="active-banner-status">Heading to Pickup</span>
+          <span class="active-arrow">Tap to view &rarr;</span>
+        </div>
+      </div>
+
+      <!-- DELIVERY REQUESTS (THE DOMINANT HERO ELEMENT) -->
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Delivery Requests</h2>
+          <span id="requests-count-badge" class="count-badge" style="display: none;">0</span>
+        </div>
+        <span id="requests-count" class="requests-live-state">Monitoring incoming requests</span>
+      </div>
+
+      <!-- Dominant incoming requests container -->
+      <div id="requests-container" class="cards-list requests-grid">
+        <!-- Rendered dynamically or clean honest empty state -->
+        <div class="empty-state">
+          <div class="empty-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16v-2"></path>
+              <polyline points="3.29 7 12 12 20.71 7"></polyline>
+              <line x1="12" y1="22" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3>No delivery requests yet.</h3>
+          <p>Incoming deliveries from Bamboo Chicken and partner apps will appear here in real time.</p>
+        </div>
+      </div>
+
+      <!-- TODAY'S REAL ACTIVITY SECTION -->
+      <div class="section-header" style="margin-top: 28px;">
+        <div class="section-title-wrap">
+          <h2>Today's Activity</h2>
+          <span class="activity-date-pill" id="today-date-pill">Today</span>
+        </div>
+      </div>
+
+      <div class="activity-summary-card">
+        <div class="activity-metric">
+          <span class="metric-label">EARNED TODAY</span>
+          <div class="metric-val" id="home-today-earnings">$0.00</div>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="activity-metric">
+          <span class="metric-label">COMPLETED TRIPS</span>
+          <div class="metric-val" id="home-today-trips">0</div>
+        </div>
+      </div>
+
+      <div id="home-recent-activity-container" class="cards-list" style="margin-top: 12px;">
+        <!-- Real completed trips or honest empty state -->
+        <div class="empty-state compact">
+          <p>No completed deliveries recorded today yet.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SCREEN 2: DELIVERIES (Active & Today's Registry) -->
+    <section id="screen-active" class="screen">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Current Delivery</h2>
+        </div>
+        <span id="active-job-id" class="job-id-pill"></span>
+      </div>
+
+      <!-- If no active delivery -->
+      <div id="active-empty" class="empty-state">
+        <div class="empty-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <h3>No active delivery in progress</h3>
+        <p>You are currently available. Incoming deliveries will appear on your Home tab.</p>
+      </div>
+
+      <!-- Active Delivery Card details -->
+      <div id="active-card" class="delivery-detail-card" style="display: none;">
+        <div class="detail-header-row">
+          <div class="status-pill-lg" id="active-status-pill">
+            <span class="status-dot-pulse"></span>
+            <span id="active-status-text">ASSIGNED</span>
+          </div>
+          <div class="payout-badge-lg">
+            <span class="payout-sm-label">PAYOUT</span>
+            <span id="active-payout" class="payout-lg-amt">$0.00</span>
+          </div>
+        </div>
+
+        <div class="merchant-hero-card">
+          <h3 id="active-merchant">Merchant Name</h3>
+          <div class="order-id-meta" id="active-order-id">Order #BC-0000</div>
+        </div>
+
+        <!-- Stepper Visualizer -->
+        <div class="route-stepper">
+          <div class="step-card">
+            <div class="step-icon pickup">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14l-1.41 1.41"></path>
+              </svg>
+            </div>
+            <div class="step-content">
+              <div class="step-label">PICKUP POINT</div>
+              <div id="active-pickup-name" class="step-name">Bamboo Chicken — CBD</div>
+              <div id="active-pickup-addr" class="step-addr">88 Kwame Nkrumah Ave, Harare CBD</div>
+              <div id="active-pickup-notes" class="step-notes" style="display: none;"></div>
+            </div>
+          </div>
+
+          <div class="stepper-line"></div>
+
+          <div class="step-card">
+            <div class="step-icon dropoff">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="step-content">
+              <div class="step-label">DESTINATION</div>
+              <div id="active-dropoff-name" class="step-name">Customer Name</div>
+              <div id="active-dropoff-addr" class="step-addr">Customer Address</div>
+              <div id="active-dropoff-instructions" class="step-notes" style="display: none;"></div>
+              <div id="active-customer-phone-wrap" class="phone-action-wrap">
+                <a id="active-customer-phone" href="#" class="call-btn">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  <span>Call Customer</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Package Summary -->
+        <div class="package-card">
+          <div class="package-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <strong>Package Summary</strong>
+          </div>
+          <p id="active-package-desc">Standard sealed package</p>
+        </div>
+
+        <!-- Primary Action Button for delivery progression -->
+        <button id="btn-active-action" class="btn-primary-action">
+          <span>START HEADING TO PICKUP</span>
+        </button>
+
+        <!-- Turn-by-turn navigation shortcut -->
+        <button id="btn-navigate" class="btn-secondary-action">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+          </svg>
+          <span>Open Turn-by-Turn GPS Navigation</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: EARNINGS -->
+    <section id="screen-earnings" class="screen">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Earnings Overview</h2>
+        </div>
+      </div>
+
+      <div class="earnings-grid">
+        <div class="stat-card hero-stat">
+          <div class="stat-top">
+            <span class="stat-label">TODAY'S EARNINGS</span>
+            <span class="stat-pill">SETTLED</span>
+          </div>
+          <div id="stat-today-earnings" class="stat-val">$0.00</div>
+          <div id="stat-today-trips" class="stat-sub">0 trips completed</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">THIS WEEK</span>
+          </div>
+          <div id="stat-week-earnings" class="stat-val">$0.00</div>
+          <div id="stat-week-trips" class="stat-sub">0 trips completed</div>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top: 24px;">
+        <div class="section-title-wrap">
+          <h2>Completed Deliveries</h2>
+        </div>
+      </div>
+
+      <div id="payouts-container" class="cards-list">
+        <div class="empty-state">
+          <div class="empty-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3>No completed deliveries yet.</h3>
+          <p>Real completed deliveries and payout settlements will appear here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: PROFILE & SETTINGS -->
+    <section id="screen-profile" class="screen">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2>Rider Account</h2>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-header-wrap">
+          <div class="profile-avatar">
+            <span id="profile-avatar">--</span>
+          </div>
+          <div class="profile-meta">
+            <h3 id="profile-name">Rider Account</h3>
+            <p id="profile-phone">Loading...</p>
+            <div class="badge-row">
+              <span id="profile-status-tag" class="verified-tag">ACTIVE RIDER</span>
+              <span class="zone-tag">HARARE FLEET</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="profile-form" class="profile-form">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input id="input-rider-name" type="text" required />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input id="input-rider-phone" type="tel" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vehicle Type</label>
+              <select id="input-rider-vehicle">
+                <option value="motorbike">Motorbike</option>
+                <option value="bicycle">Bicycle</option>
+                <option value="car">Car</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Registration</label>
+              <input id="input-rider-reg" type="text" style="text-transform: uppercase;" required />
+            </div>
+          </div>
+          <button type="submit" class="btn-save-profile">Save Profile Changes</button>
+          
+          <button type="button" id="btn-logout" class="btn-logout" title="Log out from Shopystreet Riders">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Log Out</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Developer / Cashier Source Dispatch Tool -->
+      <div class="dispatch-tool-card">
+        <div class="dispatch-header">
+          <div>
+            <h4>Source Dispatch Simulation</h4>
+            <p>Trigger real webhook requests to test the courier flow</p>
+          </div>
+          <span class="badge-webhook">WEBHOOK</span>
+        </div>
+        <button id="btn-open-dispatch-test" class="btn-webhook-open">
+          <span>Open Webhook Dispatch Console</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <div class="app-version-footer">
+        Shopystreet Riders v1.0.0<br />
+        Shared Courier Execution Platform
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION BAR (WhatsApp / Instagram Inspired, Sky Blue Accent) -->
+  <nav class="bottom-nav">
+    <div class="nav-inner">
+      <button class="nav-item active" data-tab="home">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <span>Home</span>
+      </button>
+
+      <button class="nav-item" data-tab="deliveries">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+          <span id="nav-active-dot" class="nav-dot-indicator" style="display: none;"></span>
+        </div>
+        <span>Deliveries</span>
+      </button>
+
+      <button class="nav-item" data-tab="earnings">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <span>Earnings</span>
+      </button>
+
+      <button class="nav-item" data-tab="profile">
+        <div class="nav-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <span>Profile</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL 1: DELIVERY REQUEST SHEET (Full Detail) -->
+  <div id="modal-request" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      
+      <div class="sheet-top-badge">
+        <span class="badge-pulse-glow"></span>
+        <span>NEW DELIVERY REQUEST</span>
+      </div>
+
+      <div class="sheet-merchant-row">
+        <div>
+          <span class="sheet-label">SOURCE APP</span>
+          <h2 id="modal-req-merchant">Bamboo Chicken Select</h2>
+          <span id="modal-req-source-tag" class="source-tag">BAMBOO SELECT</span>
+          <span id="modal-req-job-id" class="order-id-tag">JOB-0000</span>
+        </div>
+        <div class="sheet-payout-box">
+          <span class="payout-micro-label">RIDER PAYOUT</span>
+          <div id="modal-req-payout" class="payout-big-val">$0.00</div>
+        </div>
+      </div>
+
+      <!-- Area Route details (Privacy preserved: general areas only) -->
+      <div class="sheet-route-box">
+        <div class="sheet-route-row">
+          <div class="sheet-route-dot pickup"></div>
+          <div>
+            <span class="sheet-route-title">PICKUP AREA</span>
+            <div id="modal-req-pickup" class="sheet-route-val">Pickup Point</div>
+          </div>
+        </div>
+        <div class="sheet-route-divider"></div>
+        <div class="sheet-route-row">
+          <div class="sheet-route-dot dropoff"></div>
+          <div>
+            <span class="sheet-route-title">DROP-OFF AREA</span>
+            <div id="modal-req-dropoff" class="sheet-route-val">Drop-off Area</div>
+            <span class="sheet-privacy-note">Exact street address unlocked immediately upon acceptance</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="sheet-metrics-grid">
+        <div class="metric-box">
+          <span class="metric-box-label">DISTANCE</span>
+          <div id="modal-req-distance" class="metric-box-val">0.0 km</div>
+        </div>
+        <div class="metric-box">
+          <span class="metric-box-label">ESTIMATED ETA</span>
+          <div id="modal-req-eta" class="metric-box-val">~12 min</div>
+        </div>
+      </div>
+
+      <!-- Error / Concurrency banner -->
+      <div id="modal-req-error" class="modal-error-box" style="display: none;"></div>
+
+      <!-- ONE DOMINANT ACCEPT BUTTON -->
+      <button id="btn-accept-job" class="btn-dominant-accept">
+        <span>ACCEPT DELIVERY</span>
+      </button>
+
+      <button id="btn-close-request" class="btn-sheet-dismiss">
+        <span>Dismiss</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 2: NOTIFICATIONS FEED -->
+  <div id="modal-notifications" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <span class="sheet-title">Live Notifications</span>
+        <button id="btn-close-notif" class="close-btn">&times;</button>
+      </div>
+
+      <div id="notifications-list" class="cards-list">
+        <div class="empty-state">
+          <h3>No notifications</h3>
+          <p>Important delivery alerts and assignment updates will appear here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: INTEGRATION DISPATCH TEST -->
+  <div id="modal-dispatch-test" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <span class="sheet-title">Dispatch Simulation</span>
+        <button id="btn-close-dispatch-test" class="close-btn">&times;</button>
+      </div>
+
+      <p class="dispatch-explainer">
+        Simulate an external source dispatching a delivery job to the Shopystreet Riders network.
+      </p>
+
+      <div class="dispatch-actions-list">
+        <button id="btn-dispatch-bamboo" class="btn-dispatch-option bamboo">
+          <div class="btn-icon-brand">🍗</div>
+          <div class="btn-text-wrap">
+            <strong>Dispatch Bamboo Chicken Order</strong>
+            <span>CBD &rarr; Avondale West • $3.00 payout</span>
+          </div>
+        </button>
+
+        <button id="btn-dispatch-send" class="btn-dispatch-option send">
+          <div class="btn-icon-brand">📦</div>
+          <div class="btn-text-wrap">
+            <strong>Dispatch Shopystreet SEND Parcel</strong>
+            <span>Eastlea &rarr; Borrowdale • $4.20 payout</span>
+          </div>
+        </button>
+
+        <button id="btn-dispatch-race" class="btn-dispatch-option race">
+          <div class="btn-icon-brand">🔒</div>
+          <div class="btn-text-wrap">
+            <strong>Test Atomic Double-Claim Concurrency</strong>
+            <span>Verify server rejection of simultaneous claims</span>
+          </div>
+        </button>
+      </div>
+
+      <div id="race-test-result" class="race-result-box" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast">Action completed</div>
+
+  <!-- VANILLA JAVASCRIPT APPLICATION -->
+  <script src="/js/app.js"></script>
+</body>
+</html>

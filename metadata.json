@@ -1,0 +1,6 @@
+{
+  "name": "Shopystreet Riders",
+  "description": "Shared courier and rider delivery network platform powering Bamboo Chicken and multi-source deliveries across Harare.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
